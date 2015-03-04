@@ -34,18 +34,18 @@ EthernetServer server(80);
 
 // ======== Code ========
 
-typedef void (*ResponseSender)(EthernetClient &);
+typedef void (*StaticSender)(EthernetClient &);
 
 // Holds information about static resource
 class StaticResource {
 	public:
 		// Constructor just stores the pointers
-		StaticResource(const char *path, ResponseSender rs) :
+		StaticResource(const char *path, StaticSender rs) :
 			mPath(path),
 			mSender(rs) {
 		}
 
-		// Checks whether path matches and calls the ResponseSender if it does
+		// Checks whether path matches and calls the StaticSender if it does
 		bool match(const char *path, EthernetClient &client) {
 			if(strcmp(path, mPath)) return false;
 			mSender(client);
@@ -53,7 +53,7 @@ class StaticResource {
 		}
 	private:
 		const char *mPath;
-		ResponseSender mSender;
+		StaticSender mSender;
 };
 
 // Last states of the switches
