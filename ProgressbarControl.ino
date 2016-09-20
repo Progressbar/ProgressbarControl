@@ -520,6 +520,9 @@ void loop()
 	if(curMain != lastMain) {
 		delay(100);
 		if(digitalRead(mainSwitch) != lastMain) {
+ #ifdef DEBUG_ENABLE
+ 			Serial.println("Switch was flipped.");
+#endif
 			// If at least one of the lights is on, turn both off
 			// else turn both on
 			if(digitalRead(mainLightFront) || digitalRead(mainLightBack)) {
